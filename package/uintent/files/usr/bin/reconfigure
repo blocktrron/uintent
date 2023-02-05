@@ -1,0 +1,17 @@
+#!/bin/sh
+
+cd "/lib/uintent/config.d" || exit 1
+
+error=0
+
+for script in *; do
+	echo "Configuring: ${script}"
+	./"$script" || error=1
+done
+
+if [ $error -eq 1 ]; then
+	echo "One or more upgrade scripts failed. Please review the above error messages."
+	exit 1
+fi
+
+exit 0

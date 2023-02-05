@@ -1,0 +1,7 @@
+openwrt/
+dl/
+config/
+output/
+.code/
+.idea/
+.vscode/

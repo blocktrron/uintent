@@ -1,0 +1,79 @@
+{
+    "hostname": "cccda-{mac}",
+    "remote_syslog": {
+        "ip": "0.0.0.0",
+        "port": 1111,
+        "proto": "tcp"
+    },
+    "ssh-keys": [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDfv8X6Q/mh5qwxlmQuGL/ulSEcM6fNT/t5SstQiVq9nZL+SWRbURGXyg6BQ3dg1+W9BqQkPqIYlujyfqRF8xF1pENbtRTCb//ZfpAmjzodVu1owDz6Jc50UFT3SD7/RbRWoL7FnE2PGckHTl5t5Koa8n0vEAToluorqCG5p3aesHI6u7IFRpIP9ZhFS9D0YjCuva0D47osOlKiJWInuCernXNrgaytJRQDhZ2Z+1wo7Oh0pJWW+DnaKLw5usdllK5pT7Gtk1jeA1dHzUrnb/3OUuoxjghUrKkqUQXb2gDCYbtAR8aJmwvX7uw8frfklLjyL+9z63DKaLJO95wlLnOuMDoaX59ja2uIVqIMPm/xMhKT3TQ+0G95QIDyfylFthQ9ceeliUQPXKUkbjP+EMei840ydajoe6qWwVjy/dv9Zi7AaH8LNFR16luTfS7d7CpTfaDoFDeg1ikQpdJ8XhebpmA4cwJXTcGvE4uijvKqM74NiTFn2aqphealOdD2oVU= dbauer@dbauer-t480"
+    ],
+    "networks": {
+        "mgmt": {
+            "vlan": 42,
+            "ip4": {
+                "mgmt": {
+                    "type": "dhcp"
+                }
+            }
+        },
+        "cda": {
+            "vlan": 101
+        },
+        "ffda": {
+            "vlan": 130
+        },
+        "iot": {
+            "vlan": 110
+        }
+    },
+    "wireless": {
+        "2g": {
+            "channel": 1,
+            "networks": {
+                "iot": {
+                    "ssid": "Homeautomation",
+                    "network": "iot",
+                    "security": {
+                        "type": "WPA2-PSK",
+                        "password": "psk2password"
+                    }
+                }
+            }
+        },
+        "5g": {
+            "channel": 36,
+            "networks": {
+                "cda": {
+                    "ssid": "darmstadt.ccc.de",
+                    "network": "cda",
+                    "security": {
+                        "type": "WPA2-EAP-TTLS-PAP",
+                        "mfp": 2,
+                        "radius": {
+                            "server": "192.168.42.1",
+                            "key": "radiuspassword"
+                        }
+                    }
+                },
+                "iot": {
+                    "ssid": "Homeautomation",
+                    "network": "iot",
+                    "security": {
+                        "type": "WPA2-PSK",
+                        "password": "psk2password"
+                    }
+                },
+                "ffda": {
+                    "ssid": "darmstadt.freifunk.net",
+                    "network": "ffda",
+                    "security": {
+                        "type": "OWE",
+                        "mfp": 2,
+                        "transition_ssid": "owe.darmstadt.freifunk.net"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+reconfigure
+
+exit 0
+
