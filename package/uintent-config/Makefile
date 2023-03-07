@@ -22,12 +22,13 @@ config UINTENT_CONFIG_DIR
 endef
 
 define Build/Compile
-	cp -R $(UINTENT_CONFIG_DIR)/*  $(PKG_BUILD_DIR)/config/
+	mkdir -p $(PKG_BUILD_DIR)/config/profile
+	cp -R $(UINTENT_CONFIG_DIR)/config/profile/*  $(PKG_BUILD_DIR)/config/profile/
 endef
 
 define Package/uintent-config/install
-	$(INSTALL_DIR) $(1)/lib/uintent/config
-	$(CP) $(PKG_BUILD_DIR)/config/* $(1)/lib/uintent/config
+	$(INSTALL_DIR) $(1)/lib/uintent/config/profile
+	$(CP) $(PKG_BUILD_DIR)/config/profile/* $(1)/lib/uintent/config/profile
 endef
 
 $(eval $(call BuildPackage,uintent-config))
