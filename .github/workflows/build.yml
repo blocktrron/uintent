@@ -1,0 +1,16 @@
+name: build
+on: [push, pull_request]
+jobs:
+  build-ath79:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: sudo contrib/ci/install-dependencies.sh
+      - name: Link example config
+        run: cp -R docs/example-config config
+      - name: Download OpenWrt SDK / Imagebuilder
+        run: make download UINTENT_TARGET=ath79-generic
+      - name: Build Image
+        run: make UINTENT_TARGET=ath79-generic
