@@ -23,7 +23,7 @@ endef
 
 define Build/Compile
 	mkdir -p $(PKG_BUILD_DIR)/config/profile
-	cp -R $(UINTENT_CONFIG_DIR)/config/profile/*  $(PKG_BUILD_DIR)/config/profile/
+	cp -R $(UINTENT_CONFIG_DIR)/profile/*  $(PKG_BUILD_DIR)/config/profile/
 endef
 
 define Package/uintent-config/install
