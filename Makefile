@@ -39,14 +39,15 @@ all:
 	@echo 'CONFIG_UINTENT_CONFIG_DIR="$(ROOT_DIR)/config"' > $(UINTENT_SDK_DIR)/.config
 	$(SDK_MAKE) defconfig
 	$(SDK_MAKE) package/uintent/clean
+	$(SDK_MAKE) package/uintent-config/clean
 	$(SDK_MAKE) package/uintent/compile
 	$(SDK_MAKE) package/index BUILD_KEY="$(ROOT_DIR)/$(UINTENT_OPENWRT_DIR)/build.priv"
 	# Build with ImageBuilder
 	@ln -fs "$(ROOT_DIR)/$(UINTENT_OPENWRT_DIR)/build.pub" "$(UINTENT_IMAGEBUILDER_DIR)/keys/$$($(UINTENT_IMAGEBUILDER_DIR)/staging_dir/host/bin/usign -p $(UINTENT_OPENWRT_DIR)/build.pub -F)"
 	@$(UINTENT_ENV) scripts/imagebuilder-add-repo.sh
-	@for n in $(UINTENT_BOARD_LIST); do \
-        $(IMAGEBUILDER_MAKE) image PROFILE="$$n"; \
-    done
+	@for n in "$(UINTENT_BOARD_LIST)"; do \
+		$(IMAGEBUILDER_MAKE) image PROFILE="$$n" PACKAGES="uintent uintent-config"; \
+	done
 	@$(UINTENT_ENV) scripts/copy-output.sh
 
 
