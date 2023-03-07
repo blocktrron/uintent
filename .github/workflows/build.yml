@@ -2,6 +2,10 @@ name: build
 on: [push, pull_request]
 jobs:
   build-ath79:
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [ ath79-generic, ramips-mt7621 ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -11,6 +15,11 @@ jobs:
       - name: Link example config
         run: cp -R docs/example-config config
       - name: Download OpenWrt SDK / Imagebuilder
-        run: make download UINTENT_TARGET=ath79-generic
+        run: make download UINTENT_TARGET=${{ matrix.target }}
       - name: Build Image
-        run: make UINTENT_TARGET=ath79-generic
+        run: make UINTENT_TARGET=${{ matrix.target }}
+      - name: Archive build output
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.target }}_output
+          path: output
