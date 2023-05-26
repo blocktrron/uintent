@@ -4,7 +4,8 @@
 . /lib/functions/system.sh
 
 case $(board_name) in
-zyxel,nwa50ax)
+zyxel,nwa50ax|\
+zyxel,nwa55axe)
 	uplink_port="lan"
 	;;
 ubnt,unifiac-lite|\
