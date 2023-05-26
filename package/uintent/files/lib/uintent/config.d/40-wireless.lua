@@ -48,7 +48,13 @@ local function create_vifs(radio, vifs)
 
 		if util.table_contains_key(vif, "security") then
 			-- Key Management
-			if vif["security"]["type"] == "WPA2-PSK" then
+			if vif["security"]["type"] == "WPA3-PSK" then
+				vif_config["encryption"] = "sae"
+				vif_config["key"] = vif["security"]["password"]
+			elseif vif["security"]["type"] == "WPA3-PSK-MIXED" then
+				vif_config["encryption"] = "sae-mixed"
+				vif_config["key"] = vif["security"]["password"]
+			elseif vif["security"]["type"] == "WPA2-PSK" then
 				vif_config["encryption"] = "psk2"
 				vif_config["key"] = vif["security"]["password"]
 			elseif vif["security"]["type"] == "WPA2-EAP-TTLS-PAP" then
