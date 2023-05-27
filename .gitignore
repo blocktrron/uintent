@@ -5,3 +5,13 @@ output/
 .code/
 .idea/
 .vscode/
+
+# Devenv
+.devenv*
+devenv.local.nix
+
+# Direnv
+.direnv
+
+# Pre-commit
+.pre-commit-config.yaml
