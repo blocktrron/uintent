@@ -9,7 +9,7 @@ UINTENT_CONFIG_DIR = $(call qstrip,$(CONFIG_UINTENT_CONFIG_DIR))
 include $(INCLUDE_DIR)/package.mk
 
 define Package/uintent-config
-  TITLE:=Site-specific files of Gluon
+  TITLE:=Site-specific files of uintent
   PKGARCH:=all
 endef
 
