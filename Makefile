@@ -22,11 +22,19 @@ UINTENT_IMAGEBUILDER_DIR = $(UINTENT_OPENWRT_DIR)/imagebuilder-$(UINTENT_PRITARG
 SDK_MAKE := $(MAKE) -C $(UINTENT_SDK_DIR)
 IMAGEBUILDER_MAKE := $(MAKE) -C $(UINTENT_IMAGEBUILDER_DIR)
 
+
+ifneq ("$(wildcard $(UINTENT_CONFIG_DIR)/default.mk)","")
+	include $(UINTENT_CONFIG_DIR)/default.mk
+endif
+
 UINTENT_VARS = UINTENT_DLDIR UINTENT_OPENWRT_DIR UINTENT_SCRIPTDIR UINTENT_CONFIG_DIR UINTENT_PRITARGET UINTENT_SUBTARGET OPENWRT_VERSION OPENWRT_DOWNLOAD_URL
+
 unexport $(UINTENT_VARS)
 UINTENT_ENV = $(foreach var,$(UINTENT_VARS),$(var)=$(call escape,$($(var))))
 
 UINTENT_BOARD_LIST := "$(shell $(UINTENT_ENV) $(ROOT_DIR)/scripts/target-profile-list.sh)"
+
+UINTENT_PACKAGES := "uintent uintent-config ${UINTENT_PACKAGES}"
 
 all:
 
@@ -48,7 +56,7 @@ all:
 	@ln -fs "$(ROOT_DIR)/$(UINTENT_OPENWRT_DIR)/build.pub" "$(UINTENT_IMAGEBUILDER_DIR)/keys/$$($(UINTENT_IMAGEBUILDER_DIR)/staging_dir/host/bin/usign -p $(UINTENT_OPENWRT_DIR)/build.pub -F)"
 	@$(UINTENT_ENV) scripts/imagebuilder-add-repo.sh
 	@for n in "$(UINTENT_BOARD_LIST)"; do \
-		$(IMAGEBUILDER_MAKE) image PROFILE="$$n" PACKAGES="uintent uintent-config"; \
+		$(IMAGEBUILDER_MAKE) image PROFILE="$$n" PACKAGES=${UINTENT_PACKAGES}; \
 	done
 	@$(UINTENT_ENV) scripts/copy-output.sh
 
