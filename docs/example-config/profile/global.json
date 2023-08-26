@@ -75,5 +75,13 @@
                 }
             }
         }
+    },
+    "usteer": {
+        "main": {
+            "network": "mgmt_mgmt_ip4",
+            "ssid_list": [
+                "darmstadt.freifunk.net"
+            ]
+        }
     }
 }

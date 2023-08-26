@@ -51,6 +51,9 @@ all:
 	$(SDK_MAKE) package/uintent/clean
 	$(SDK_MAKE) package/uintent-config/clean
 	$(SDK_MAKE) package/uintent/compile
+	$(SDK_MAKE) package/uintent-usteer/clean
+	# TODO: maybe only conditionally compile uintent-usteer
+	$(SDK_MAKE) package/uintent-usteer/compile
 	$(SDK_MAKE) package/index BUILD_KEY="$(ROOT_DIR)/$(UINTENT_OPENWRT_DIR)/build.priv"
 	# Build with ImageBuilder
 	@ln -fs "$(ROOT_DIR)/$(UINTENT_OPENWRT_DIR)/build.pub" "$(UINTENT_IMAGEBUILDER_DIR)/keys/$$($(UINTENT_IMAGEBUILDER_DIR)/staging_dir/host/bin/usign -p $(UINTENT_OPENWRT_DIR)/build.pub -F)"
