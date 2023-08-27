@@ -1,3 +1,3 @@
 #!/bin/sh
 
-passwd -l root
+passwd -l root || true
