@@ -1,7 +1,7 @@
 name: build
 on: [push, pull_request]
 jobs:
-  build-ath79:
+  build:
     strategy:
       fail-fast: false
       matrix:
