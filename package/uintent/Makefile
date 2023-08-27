@@ -11,7 +11,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/uintent
 	TITLE:=Intent-based Access-Point configuration
 	PKGARCH:=all
-	DEPENDS:=+luaposix +libiwinfo-lua +lua-cjson +uintent-config
+	DEPENDS:=+luaposix +libiwinfo-lua +libuci-lua +lua-cjson +uintent-config
 endef
 
 define Package/uintent/description
@@ -25,6 +25,7 @@ define Package/uintent/install
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(INSTALL_BIN) ./files/etc/uci-defaults/zzz-reconfigure $(1)/etc/uci-defaults
 	$(INSTALL_DIR) $(1)/usr/lib/lua/uintent
+	$(CP) ./files/usr/lib/lua/uintent/simple-uci.lua $(1)/usr/lib/lua/uintent
 	$(CP) ./files/usr/lib/lua/uintent/util.lua $(1)/usr/lib/lua/uintent
 	$(CP) ./files/usr/lib/lua/uintent/wireless.lua $(1)/usr/lib/lua/uintent
 	$(INSTALL_DIR) $(1)/lib/setup
