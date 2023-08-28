@@ -1,11 +1,10 @@
 #!/usr/bin/lua
 
-local uci = require "uintent.simple-uci".cursor()
+local uci = require("uintent.simple-uci").cursor()
 local util = require("uintent.util")
 
 local interface = util.get_uplink_interface()
 local profile = util.get_profile()
-
 
 -- remove default network bridge
 uci:delete("network", "lan")
@@ -26,7 +25,7 @@ for ifname, network in pairs(profile["networks"]) do
 	uci:section("network", "device", ifname, {
 		name = bridge_name,
 		type = "bridge",
-		ports = {port_name}
+		ports = { port_name },
 	})
 
 	-- Add dummy interface to create bridge

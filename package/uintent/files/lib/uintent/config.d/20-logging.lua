@@ -6,7 +6,7 @@ local util = require("uintent.util")
 local profile = util.get_profile()
 
 if not util.table_contains_key(profile, "remote_syslog") then
-    return
+	return
 end
 
 local syslog_settings = profile["remote_syslog"]

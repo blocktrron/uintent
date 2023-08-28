@@ -1,4 +1,4 @@
-local cjson = require 'cjson'
+local cjson = require("cjson")
 
 local M = {}
 
@@ -11,7 +11,7 @@ local function readall(f)
 		return nil
 	end
 
-	local data = f:read('*a')
+	local data = f:read("*a")
 	f:close()
 	return data
 end
@@ -21,12 +21,16 @@ function M.exec(command)
 end
 
 function M.get_primary_mac()
-	local mac = M.exec('/usr/lib/uintent/label_mac.sh')
+	local mac = M.exec("/usr/lib/uintent/label_mac.sh")
 
-	if mac == nil then return nil end
+	if mac == nil then
+		return nil
+	end
 
 	mac = M.trim(mac)
-	if string.len(mac) ~= 17 then return nil end
+	if string.len(mac) ~= 17 then
+		return nil
+	end
 
 	return mac
 end
@@ -52,7 +56,6 @@ function M.merge_table(t1, t2)
 
 	return t1
 end
-
 
 function M.get_profile()
 	local global_profile = M.read_profile_from_file("global")
