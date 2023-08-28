@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# shellcheck source=/dev/null
 . /lib/functions.sh
 . /lib/functions/system.sh
 
@@ -16,4 +17,5 @@ esac
 
 mkdir -p /lib/uintent/board
 
+# shellcheck disable=SC3037
 echo -n "$uplink_port" > /lib/uintent/board/uplink_port

@@ -2,6 +2,6 @@
 
 UINTENT_ROOT=$(pwd)
 
-LIST="$(cat $UINTENT_ROOT/targets/$UINTENT_PRITARGET-$UINTENT_SUBTARGET | tr " " "\n")"
+LIST="$(tr " " "\n" < "$UINTENT_ROOT/targets/$UINTENT_PRITARGET-$UINTENT_SUBTARGET")"
 
 echo "$LIST"
