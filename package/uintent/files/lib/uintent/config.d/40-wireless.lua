@@ -1,7 +1,7 @@
 #!/usr/bin/lua
 
 local uci = require("uintent.simple-uci").cursor()
-local iwinfo = require 'iwinfo'
+local iwinfo = require("iwinfo")
 
 local util = require("uintent.util")
 local wireless = require("uintent.wireless")
@@ -22,18 +22,18 @@ local function determine_htmode(radio, band_config)
 	end
 
 	if iwinfo.nl80211.hwmodelist(phy).ax then
-		return 'HE' .. bandwith
+		return "HE" .. bandwith
 	end
 
 	if iwinfo.nl80211.hwmodelist(phy).ac then
-		return 'VHT' .. bandwith
+		return "VHT" .. bandwith
 	end
 
 	return "HT" .. bandwith
 end
 
 local function create_vifs(radio, vifs)
-	local radio_id = radio:match('^radio(%d+)$')
+	local radio_id = radio:match("^radio(%d+)$")
 
 	for name, vif in pairs(vifs) do
 		local vif_config = {}
@@ -83,7 +83,7 @@ local function create_vifs(radio, vifs)
 						encryption = "none",
 						mode = "ap",
 						network = network_name,
-						owe_transition_ifname = owe_vif_ifname
+						owe_transition_ifname = owe_vif_ifname,
 					})
 				end
 			end
