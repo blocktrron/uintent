@@ -6,6 +6,7 @@
   # https://devenv.sh/packages/
   packages = with pkgs; [
     lua-language-server
+    shellcheck
     stylua
   ];
 
@@ -17,6 +18,7 @@
 
   pre-commit.hooks = {
     luacheck.enable = true;
+    shellcheck.enable = true;
     stylua.enable = true;
   };
 }
