@@ -49,6 +49,9 @@ for ifname, network in pairs(profile["networks"]) do
 				if util.table_contains_key(address_config, "gateway") then
 					uci:set("network", section_name, "gateway", address_config["gateway"])
 				end
+				if util.table_contains_key(address_config, "dns") then
+					uci:set_list("network", section_name, "dns", address_config["dns"])
+				end
 				uci:set("network", section_name, "netmask", address_config["netmask"])
 			end
 		end
