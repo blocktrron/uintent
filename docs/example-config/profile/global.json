@@ -15,7 +15,8 @@
                 "mgmt": {
                     "type": "dhcp"
                 }
-            }
+            },
+            "usteer": "main"
         },
         "cda": {
             "vlan": 101
@@ -71,9 +72,19 @@
                         "type": "OWE",
                         "mfp": 2,
                         "transition_ssid": "owe.darmstadt.freifunk.net"
-                    }
+                    },
+                    "usteer": "main"
                 }
             }
+        }
+    },
+    "usteer": {
+        "main": {
+            "band_steering_min_snr": "-60",
+            "band_steering_interval": "20000",
+            "local_mode": "0",
+            "remote_update_interval": "5000",
+            "remote_node_timeout": "12"
         }
     }
 }
