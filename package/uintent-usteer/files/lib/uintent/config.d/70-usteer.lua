@@ -20,7 +20,7 @@ for section_name, usteer_config in pairs(profile["usteer"]) do
 		if util.table_contains_key(network, "usteer") then
 			if network["usteer"] == section_name then
 				if util.table_contains_key(network, "ip4") then
-					for name, address_config in pairs(network["ip4"]) do
+					for name, _ in pairs(network["ip4"]) do
 						table.insert(usteer_networks, ifname .. "_" .. name .. "_4")
 					end
 				end
@@ -165,9 +165,9 @@ for section_name, usteer_config in pairs(profile["usteer"]) do
 	-- TODO: check if there is a cleaner way
 	local usteer_ssids = {}
 	if util.table_contains_key(profile, "wireless") then
-		for band, settings in pairs(profile["wireless"]) do
+		for _, settings in pairs(profile["wireless"]) do
 			if util.table_contains_key(settings, "networks") then
-				for wifinetname, wifinetsettings in pairs(settings["networks"]) do
+				for _, wifinetsettings in pairs(settings["networks"]) do
 					if util.table_contains_key(wifinetsettings, "usteer") then
 						if wifinetsettings["usteer"] == section_name then
 							if not util.table_contains(usteer_ssids, wifinetsettings["ssid"]) then
