@@ -16,7 +16,7 @@ for section_name, usteer_config in pairs(profile["usteer"]) do
 
 	-- TODO: i would like it to generate this value via the `"networks"."lan"."usteer"="USTEER-SECTION-NAME`
 	if util.table_contains_key(usteer_config, "network") then
-		uci:set("usteer", section_name, "network", usteer_config["network"])
+		uci:set_list("usteer", section_name, "network", usteer_config["network"])
 	else
 		print("ERROR: usteer network must be set")
 		os.exit(1)
