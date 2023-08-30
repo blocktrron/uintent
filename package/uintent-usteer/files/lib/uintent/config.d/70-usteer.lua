@@ -14,13 +14,22 @@ end
 for section_name, usteer_config in pairs(profile["usteer"]) do
 	uci:section("usteer", "usteer", section_name, {})
 
-	-- TODO: i would like it to generate this value via the `"networks"."lan"."usteer"="USTEER-SECTION-NAME`
-	if util.table_contains_key(usteer_config, "network") then
-		uci:set_list("usteer", section_name, "network", usteer_config["network"])
-	else
-		print("ERROR: usteer network must be set")
-		os.exit(1)
+	-- TODO: a common method (e.g. in utils) to get network section names matching certain criteria would be good
+	local usteer_networks = {}
+	for ifname, network in pairs(profile["networks"]) do
+		if util.table_contains_key(network, "usteer") then
+			if network["usteer"] == section_name then
+				if util.table_contains_key(network, "ip4") then
+					for name, address_config in pairs(network["ip4"]) do
+						table.insert(usteer_networks, ifname .. "_" .. name .. "_4")
+					end
+				end
+			end
+		end
 	end
+	uci:set_list("usteer", section_name, "network", usteer_networks)
+
+	-- TODO: create a method
 	if util.table_contains_key(usteer_config, "syslog") then
 		uci:set("usteer", section_name, "syslog", usteer_config["syslog"])
 	else
@@ -152,11 +161,25 @@ for section_name, usteer_config in pairs(profile["usteer"]) do
 	if util.table_contains_key(usteer_config, "event_log_types") then
 		uci:set_list("usteer", section_name, "event_log_types", usteer_config["event_log_types"])
 	end
-	-- TODO: i would like it to
-	-- generate this via `wireless"."BAND"."networks"."NetworkName"."usteer"="USTEER-SECTION-NAME` parameters
-	if util.table_contains_key(usteer_config, "ssid_list") then
-		uci:set_list("usteer", section_name, "ssid_list", usteer_config["ssid_list"])
+
+	-- TODO: check if there is a cleaner way
+	local usteer_ssids = {}
+	if util.table_contains_key(profile, "wireless") then
+		for band, settings in pairs(profile["wireless"]) do
+			if util.table_contains_key(settings, "networks") then
+				for wifinetname, wifinetsettings in pairs(settings["networks"]) do
+					if util.table_contains_key(wifinetsettings, "usteer") then
+						if wifinetsettings["usteer"] == section_name then
+							if not util.table_contains(usteer_ssids, wifinetsettings["ssid"]) then
+								table.insert(usteer_ssids, wifinetsettings["ssid"])
+							end
+						end
+					end
+				end
+			end
+		end
 	end
+	uci:set_list("usteer", section_name, "ssid_list", usteer_ssids)
 end
 
 uci:commit("usteer")
