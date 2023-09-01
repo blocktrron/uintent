@@ -14,6 +14,8 @@ uci:delete("network", "wan6")
 uci:delete_all("network", "device")
 uci:delete_all("network", "interface")
 
+uci:set("firewall", uci:get_first("firewall", "defaults"), "input", "ACCEPT")
+
 for ifname, network in pairs(profile["networks"]) do
 	local bridge_name = "br-" .. ifname
 	local port_name = interface
@@ -59,3 +61,4 @@ for ifname, network in pairs(profile["networks"]) do
 end
 
 uci:commit("network")
+uci:commit("firewall")
