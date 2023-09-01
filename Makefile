@@ -53,6 +53,7 @@ all:
 		prometheus-node-exporter-lua-wifi \
 		prometheus-node-exporter-lua-wifi_stations \
 		tcpdump \
+		ethtool-full \
 		lldpd \
 		-wpad-basic-mbedtls \
 		-wpad-basic-wolfssl \
