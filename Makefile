@@ -46,7 +46,7 @@ all:
 	@ln -fs "$(ROOT_DIR)/$(UINTENT_OPENWRT_DIR)/build.pub" "$(UINTENT_IMAGEBUILDER_DIR)/keys/$$($(UINTENT_IMAGEBUILDER_DIR)/staging_dir/host/bin/usign -p $(UINTENT_OPENWRT_DIR)/build.pub -F)"
 	@$(UINTENT_ENV) scripts/imagebuilder-add-repo.sh
 	@for n in "$(UINTENT_BOARD_LIST)"; do \
-		$(IMAGEBUILDER_MAKE) image PROFILE="$$n" PACKAGES="uintent uintent-config -wpad-basic-wolfssl hostapd-wolfssl"; \
+		$(IMAGEBUILDER_MAKE) image PROFILE="$$n" PACKAGES="uintent uintent-config prometheus-node-exporter-lua-hostapd_stations prometheus-node-exporter-lua-hostapd_ubus_stations prometheus-node-exporter-lua-wifi prometheus-node-exporter-lua-wifi_stations -wpad-basic-wolfssl hostapd-wolfssl"; \
 	done
 	@$(UINTENT_ENV) scripts/copy-output.sh
 
