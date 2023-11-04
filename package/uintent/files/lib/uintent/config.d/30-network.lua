@@ -14,6 +14,13 @@ uci:delete("network", "wan6")
 uci:delete_all("network", "device")
 uci:delete_all("network", "interface")
 
+uci:section("network", "interface", "loopback", {
+	netmask = "255.0.0.0",
+	ifname = "lo",
+	ipaddr = "127.0.0.1",
+	proto = "static",
+})
+
 for ifname, network in pairs(profile["networks"]) do
 	local bridge_name = "br-" .. ifname
 	local port_name = interface
